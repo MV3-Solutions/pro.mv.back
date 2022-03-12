@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',#app
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -121,3 +124,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 ALLOWED_HOSTS = ['*']
 X_FRAME_OPTIONS = '*'
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = False
+#CORS_ORIGIN_WHITELIST = ('http://localhost:8080', 'https://0.0.0.0:3000', 'https://promvback.nickaa.repl.co/' )
+
+# CORS_ORIGIN_WHITELIST = [
+# 'http://promvback.nickaa.repl.co/',
+# 'https://0.0.0.0:3000',
+# 'http://localhost:8080',
+# ]
