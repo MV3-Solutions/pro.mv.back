@@ -5,11 +5,11 @@ from rest_framework import status
 
 from api.models import Countries
 from api.serializers import CountriesSerializer
-from rest_framework.decorators import api_views
+from rest_framework.decorators import api_view
 # Create your views here.
 
 
-@api_views(['GET', 'POST'])
+@api_view(['GET', 'POST'])
 def countries_list(request):
 
   if request.method == 'GET':
@@ -33,7 +33,7 @@ def countries_list(request):
 
 
 
-@api_views(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def countries_detail(request, pk):
   try:
     countries = Countries.objects.get(pk = pk)
@@ -47,11 +47,12 @@ def countries_detail(request, pk):
   elif request.method == 'PUT':
     countries_data = JSONParser().parse(request)
     countries_serializer = CountriesSerializer(countries, data = countries_data)
-    if countries_serializer.is_valid:
+    if countries_serializer.is_valid():
       countries_serializer.save()
       return JsonResponse(countries_serializer.data)
     return JsonResponse(countries_serializer.errors, status = status.HTTP_403_FORBIDDEN)
 
   elif request.method == 'DELETE':
     countries.delete()
-    return JsonResponse({'message':'Country was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+    return JsonResponse({'message':'Country was deleted successfully!'})
+    # return JsonResponse({'message':'Country was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
